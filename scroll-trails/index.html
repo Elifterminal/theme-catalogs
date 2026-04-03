@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Scroll Trails Catalog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --text: #f0f0f0;
+            --text-muted: #666;
+            --accent: #E8C547;
+            --border: #2a2a2a;
+            --section-bg: #111;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 1.5rem 2rem; background: rgba(10,10,10,0.9);
+            backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);
+        }
+        .header h1 { font-size: 1rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+        .header p { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+        .demo-section {
+            min-height: 100vh;
+            position: relative;
+            padding: 8rem 2rem 4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .demo-label {
+            position: sticky; top: 5rem; z-index: 10;
+            background: var(--accent); color: #0a0a0a;
+            display: inline-block; padding: 0.5rem 1rem;
+            font-weight: 700; font-size: 0.75rem;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            border-radius: 2px; margin-bottom: 2rem;
+        }
+
+        .demo-description {
+            color: var(--text-muted); font-size: 0.875rem;
+            max-width: 50ch; margin-bottom: 3rem; line-height: 1.6;
+        }
+
+        .placeholder-card {
+            max-width: 400px; margin: 0 auto 2rem;
+            background: #1a1a1a; border: 1px solid var(--border);
+            border-radius: 8px; padding: 2rem;
+            text-align: center; color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* ============================================================
+           TRAIL 1: Paw Prints
+           ============================================================ */
+
+        .trail-paws {
+            position: relative;
+        }
+
+        .paw-trail {
+            position: absolute;
+            left: 50%;
+            top: 6rem;
+            bottom: 0;
+            width: 200px;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .paw {
+            position: absolute;
+            width: 30px;
+            height: 35px;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .paw.visible {
+            opacity: 0.15;
+        }
+
+        .paw svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--accent);
+        }
+
+        .paw:nth-child(odd) { left: 20px; transform: rotate(-15deg); }
+        .paw:nth-child(even) { right: 20px; left: auto; transform: rotate(15deg); }
+
+        .paw:nth-child(1) { top: 0; }
+        .paw:nth-child(2) { top: 80px; }
+        .paw:nth-child(3) { top: 160px; }
+        .paw:nth-child(4) { top: 240px; }
+        .paw:nth-child(5) { top: 320px; }
+        .paw:nth-child(6) { top: 400px; }
+        .paw:nth-child(7) { top: 480px; }
+        .paw:nth-child(8) { top: 560px; }
+        .paw:nth-child(9) { top: 640px; }
+        .paw:nth-child(10) { top: 720px; }
+
+        /* ============================================================
+           TRAIL 2: Dotted Path (like a treasure map)
+           ============================================================ */
+
+        .trail-dots {
+            position: relative;
+        }
+
+        .dot-path {
+            position: absolute;
+            left: 50%;
+            top: 6rem;
+            width: 2px;
+            height: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                var(--accent) 0px,
+                var(--accent) 8px,
+                transparent 8px,
+                transparent 20px
+            );
+            opacity: 0.2;
+            transition: height 0.1s linear;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ============================================================
+           TRAIL 3: Falling Leaves
+           ============================================================ */
+
+        .trail-leaves {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .leaf {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .leaf.visible {
+            opacity: 0.25;
+            animation: leaf-fall 3s ease-in-out infinite;
+        }
+
+        @keyframes leaf-fall {
+            0% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(15px) rotate(20deg); }
+            50% { transform: translateX(-10px) rotate(-10deg); }
+            75% { transform: translateX(8px) rotate(15deg); }
+            100% { transform: translateX(0) rotate(0deg); }
+        }
+
+        .leaf:nth-child(1) { left: 10%; top: 100px; animation-delay: 0s; }
+        .leaf:nth-child(2) { left: 80%; top: 180px; animation-delay: 0.5s; }
+        .leaf:nth-child(3) { left: 25%; top: 280px; animation-delay: 1s; }
+        .leaf:nth-child(4) { left: 70%; top: 380px; animation-delay: 0.3s; }
+        .leaf:nth-child(5) { left: 45%; top: 460px; animation-delay: 0.8s; }
+        .leaf:nth-child(6) { left: 15%; top: 560px; animation-delay: 1.2s; }
+        .leaf:nth-child(7) { left: 85%; top: 640px; animation-delay: 0.2s; }
+        .leaf:nth-child(8) { left: 55%; top: 720px; animation-delay: 0.7s; }
+
+        /* ============================================================
+           TRAIL 4: Music Notes
+           ============================================================ */
+
+        .trail-notes {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .note {
+            position: absolute;
+            font-size: 1.8rem;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .note.visible {
+            opacity: 0.2;
+            animation: note-float 4s ease-in-out infinite;
+        }
+
+        @keyframes note-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(10deg); }
+        }
+
+        .note:nth-child(1) { left: 8%; top: 120px; animation-delay: 0s; }
+        .note:nth-child(2) { right: 12%; top: 200px; animation-delay: 0.7s; }
+        .note:nth-child(3) { left: 20%; top: 320px; animation-delay: 0.3s; }
+        .note:nth-child(4) { right: 8%; top: 420px; animation-delay: 1s; }
+        .note:nth-child(5) { left: 15%; top: 530px; animation-delay: 0.5s; }
+        .note:nth-child(6) { right: 20%; top: 630px; animation-delay: 0.2s; }
+        .note:nth-child(7) { left: 5%; top: 720px; animation-delay: 0.9s; }
+
+        /* ============================================================
+           TRAIL 5: Footsteps (human)
+           ============================================================ */
+
+        .trail-footsteps {
+            position: relative;
+        }
+
+        .footstep {
+            position: absolute;
+            left: 50%;
+            width: 24px;
+            height: 40px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .footstep.visible {
+            opacity: 0.12;
+        }
+
+        .footstep svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--text);
+        }
+
+        .footstep:nth-child(odd) { margin-left: -40px; transform: rotate(-5deg); }
+        .footstep:nth-child(even) { margin-left: 15px; transform: rotate(5deg) scaleX(-1); }
+
+        .footstep:nth-child(1) { top: 60px; }
+        .footstep:nth-child(2) { top: 140px; }
+        .footstep:nth-child(3) { top: 220px; }
+        .footstep:nth-child(4) { top: 300px; }
+        .footstep:nth-child(5) { top: 380px; }
+        .footstep:nth-child(6) { top: 460px; }
+        .footstep:nth-child(7) { top: 540px; }
+        .footstep:nth-child(8) { top: 620px; }
+
+        /* ============================================================
+           TRAIL 6: Stars / Sparkles
+           ============================================================ */
+
+        .trail-stars {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .sparkle.visible {
+            opacity: 0.3;
+            animation: sparkle-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.5); opacity: 0.1; }
+        }
+
+        .sparkle::before {
+            content: '\2726';
+            font-size: 1rem;
+            color: var(--accent);
+        }
+
+        .sparkle:nth-child(1) { left: 5%; top: 80px; animation-delay: 0s; }
+        .sparkle:nth-child(2) { left: 90%; top: 130px; animation-delay: 0.3s; }
+        .sparkle:nth-child(3) { left: 20%; top: 220px; animation-delay: 0.6s; }
+        .sparkle:nth-child(4) { left: 75%; top: 300px; animation-delay: 0.1s; }
+        .sparkle:nth-child(5) { left: 40%; top: 370px; animation-delay: 0.8s; }
+        .sparkle:nth-child(6) { left: 85%; top: 450px; animation-delay: 0.4s; }
+        .sparkle:nth-child(7) { left: 10%; top: 520px; animation-delay: 0.7s; }
+        .sparkle:nth-child(8) { left: 60%; top: 600px; animation-delay: 0.2s; }
+        .sparkle:nth-child(9) { left: 30%; top: 680px; animation-delay: 0.5s; }
+        .sparkle:nth-child(10) { left: 70%; top: 750px; animation-delay: 0.9s; }
+
+        /* ============================================================
+           TRAIL 7: Bubbles
+           ============================================================ */
+
+        .trail-bubbles {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bubble.visible {
+            opacity: 1;
+            animation: bubble-rise 5s ease-in-out infinite;
+        }
+
+        @keyframes bubble-rise {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .bubble:nth-child(1) { left: 10%; top: 100px; width: 20px; height: 20px; animation-delay: 0s; }
+        .bubble:nth-child(2) { left: 80%; top: 170px; width: 35px; height: 35px; animation-delay: 0.5s; }
+        .bubble:nth-child(3) { left: 30%; top: 260px; width: 15px; height: 15px; animation-delay: 1s; }
+        .bubble:nth-child(4) { left: 65%; top: 350px; width: 25px; height: 25px; animation-delay: 0.3s; }
+        .bubble:nth-child(5) { left: 15%; top: 440px; width: 40px; height: 40px; animation-delay: 0.8s; }
+        .bubble:nth-child(6) { left: 75%; top: 530px; width: 18px; height: 18px; animation-delay: 0.2s; }
+        .bubble:nth-child(7) { left: 45%; top: 620px; width: 30px; height: 30px; animation-delay: 0.6s; }
+
+        /* ============================================================
+           TRAIL 8: Hearts
+           ============================================================ */
+
+        .trail-hearts {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .heart-trail {
+            position: absolute;
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+            z-index: 0;
+            color: #e74c6f;
+        }
+
+        .heart-trail.visible {
+            opacity: 0.2;
+            animation: heart-beat 2s ease-in-out infinite;
+        }
+
+        @keyframes heart-beat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+        }
+
+        .heart-trail:nth-child(1) { left: 8%; top: 100px; font-size: 1.5rem; animation-delay: 0s; }
+        .heart-trail:nth-child(2) { right: 10%; top: 200px; font-size: 1rem; animation-delay: 0.5s; }
+        .heart-trail:nth-child(3) { left: 25%; top: 310px; font-size: 1.8rem; animation-delay: 0.2s; }
+        .heart-trail:nth-child(4) { right: 20%; top: 400px; font-size: 0.8rem; animation-delay: 0.8s; }
+        .heart-trail:nth-child(5) { left: 50%; top: 500px; font-size: 1.3rem; animation-delay: 0.4s; }
+        .heart-trail:nth-child(6) { right: 5%; top: 580px; font-size: 1.6rem; animation-delay: 0.1s; }
+        .heart-trail:nth-child(7) { left: 15%; top: 680px; font-size: 1.1rem; animation-delay: 0.7s; }
+
+        /* ============================================================
+           TRAIL 9: Geometric Line (connected dots)
+           ============================================================ */
+
+        .trail-geo {
+            position: relative;
+        }
+
+        .geo-line {
+            position: absolute;
+            left: 50%;
+            top: 6rem;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .geo-line svg {
+            width: 200px;
+            height: 800px;
+        }
+
+        .geo-line svg path {
+            stroke: var(--accent);
+            stroke-width: 1;
+            fill: none;
+            opacity: 0.15;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: stroke-dashoffset 2s ease;
+        }
+
+        .geo-line.visible svg path {
+            stroke-dashoffset: 0;
+        }
+
+        .geo-line svg circle {
+            fill: var(--accent);
+            opacity: 0.25;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Scroll Trails Catalog</h1>
+        <p>Scroll down to see each trail animate. These guide the visitor's eye through the page.</p>
+    </div>
+
+    <!-- TRAIL 1: Paw Prints -->
+    <section class="demo-section trail-paws" id="paws">
+        <span class="demo-label">Paw Prints</span>
+        <p class="demo-description">Alternating left-right paw prints that appear as the user scrolls. Perfect for pet businesses, dog walkers, veterinarians.</p>
+        <div class="paw-trail">
+            <div class="paw"><svg viewBox="0 0 50 50"><path d="M25 42c-6 0-12-5-12-12 0-5 4-8 9-8 1-3 3-6 3-6s2 3 3 6c5 0 9 3 9 8 0 7-6 12-12 12zM10 20c-3 0-6-3-6-7s2-7 5-7 6 3 6 7-2 7-5 7zM20 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM30 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM40 20c-3 0-5-3-5-7s3-7 6-7 5 3 5 7-3 7-6 7z"/></svg></div>
+            <div class="paw"><svg viewBox="0 0 50 50"><path d="M25 42c-6 0-12-5-12-12 0-5 4-8 9-8 1-3 3-6 3-6s2 3 3 6c5 0 9 3 9 8 0 7-6 12-12 12zM10 20c-3 0-6-3-6-7s2-7 5-7 6 3 6 7-2 7-5 7zM20 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM30 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM40 20c-3 0-5-3-5-7s3-7 6-7 5 3 5 7-3 7-6 7z"/></svg></div>
+            <div class="paw"><svg viewBox="0 0 50 50"><path d="M25 42c-6 0-12-5-12-12 0-5 4-8 9-8 1-3 3-6 3-6s2 3 3 6c5 0 9 3 9 8 0 7-6 12-12 12zM10 20c-3 0-6-3-6-7s2-7 5-7 6 3 6 7-2 7-5 7zM20 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM30 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM40 20c-3 0-5-3-5-7s3-7 6-7 5 3 5 7-3 7-6 7z"/></svg></div>
+            <div class="paw"><svg viewBox="0 0 50 50"><path d="M25 42c-6 0-12-5-12-12 0-5 4-8 9-8 1-3 3-6 3-6s2 3 3 6c5 0 9 3 9 8 0 7-6 12-12 12zM10 20c-3 0-6-3-6-7s2-7 5-7 6 3 6 7-2 7-5 7zM20 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM30 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM40 20c-3 0-5-3-5-7s3-7 6-7 5 3 5 7-3 7-6 7z"/></svg></div>
+            <div class="paw"><svg viewBox="0 0 50 50"><path d="M25 42c-6 0-12-5-12-12 0-5 4-8 9-8 1-3 3-6 3-6s2 3 3 6c5 0 9 3 9 8 0 7-6 12-12 12zM10 20c-3 0-6-3-6-7s2-7 5-7 6 3 6 7-2 7-5 7zM20 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM30 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM40 20c-3 0-5-3-5-7s3-7 6-7 5 3 5 7-3 7-6 7z"/></svg></div>
+            <div class="paw"><svg viewBox="0 0 50 50"><path d="M25 42c-6 0-12-5-12-12 0-5 4-8 9-8 1-3 3-6 3-6s2 3 3 6c5 0 9 3 9 8 0 7-6 12-12 12zM10 20c-3 0-6-3-6-7s2-7 5-7 6 3 6 7-2 7-5 7zM20 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM30 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM40 20c-3 0-5-3-5-7s3-7 6-7 5 3 5 7-3 7-6 7z"/></svg></div>
+            <div class="paw"><svg viewBox="0 0 50 50"><path d="M25 42c-6 0-12-5-12-12 0-5 4-8 9-8 1-3 3-6 3-6s2 3 3 6c5 0 9 3 9 8 0 7-6 12-12 12zM10 20c-3 0-6-3-6-7s2-7 5-7 6 3 6 7-2 7-5 7zM20 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM30 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM40 20c-3 0-5-3-5-7s3-7 6-7 5 3 5 7-3 7-6 7z"/></svg></div>
+            <div class="paw"><svg viewBox="0 0 50 50"><path d="M25 42c-6 0-12-5-12-12 0-5 4-8 9-8 1-3 3-6 3-6s2 3 3 6c5 0 9 3 9 8 0 7-6 12-12 12zM10 20c-3 0-6-3-6-7s2-7 5-7 6 3 6 7-2 7-5 7zM20 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM30 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM40 20c-3 0-5-3-5-7s3-7 6-7 5 3 5 7-3 7-6 7z"/></svg></div>
+            <div class="paw"><svg viewBox="0 0 50 50"><path d="M25 42c-6 0-12-5-12-12 0-5 4-8 9-8 1-3 3-6 3-6s2 3 3 6c5 0 9 3 9 8 0 7-6 12-12 12zM10 20c-3 0-6-3-6-7s2-7 5-7 6 3 6 7-2 7-5 7zM20 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM30 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM40 20c-3 0-5-3-5-7s3-7 6-7 5 3 5 7-3 7-6 7z"/></svg></div>
+            <div class="paw"><svg viewBox="0 0 50 50"><path d="M25 42c-6 0-12-5-12-12 0-5 4-8 9-8 1-3 3-6 3-6s2 3 3 6c5 0 9 3 9 8 0 7-6 12-12 12zM10 20c-3 0-6-3-6-7s2-7 5-7 6 3 6 7-2 7-5 7zM20 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM30 14c-3 0-5-3-5-6s2-6 5-6 5 3 5 6-2 6-5 6zM40 20c-3 0-5-3-5-7s3-7 6-7 5 3 5 7-3 7-6 7z"/></svg></div>
+        </div>
+        <div style="position: relative; z-index: 1;">
+            <div class="placeholder-card">Content card 1</div>
+            <div class="placeholder-card">Content card 2</div>
+            <div class="placeholder-card">Content card 3</div>
+        </div>
+    </section>
+
+    <!-- TRAIL 2: Dotted Path -->
+    <section class="demo-section trail-dots" id="dots">
+        <span class="demo-label">Dotted Path</span>
+        <p class="demo-description">A dashed line that grows downward as the user scrolls, like a treasure map route. Works for adventure, travel, roadmap pages.</p>
+        <div class="dot-path" id="dot-path"></div>
+        <div style="position: relative; z-index: 1;">
+            <div class="placeholder-card">Milestone 1</div>
+            <div class="placeholder-card">Milestone 2</div>
+            <div class="placeholder-card">Milestone 3</div>
+        </div>
+    </section>
+
+    <!-- TRAIL 3: Falling Leaves -->
+    <section class="demo-section trail-leaves" id="leaves">
+        <span class="demo-label">Falling Leaves</span>
+        <p class="demo-description">Scattered leaves that gently sway as they appear. Perfect for nature, organic, garden, wellness themes.</p>
+        <div class="leaf">🍂</div>
+        <div class="leaf">🍃</div>
+        <div class="leaf">🍂</div>
+        <div class="leaf">🍃</div>
+        <div class="leaf">🍂</div>
+        <div class="leaf">🍃</div>
+        <div class="leaf">🍂</div>
+        <div class="leaf">🍃</div>
+        <div style="position: relative; z-index: 1;">
+            <div class="placeholder-card">Nature content</div>
+            <div class="placeholder-card">Garden tips</div>
+            <div class="placeholder-card">Seasonal update</div>
+        </div>
+    </section>
+
+    <!-- TRAIL 4: Music Notes -->
+    <section class="demo-section trail-notes" id="notes">
+        <span class="demo-label">Music Notes</span>
+        <p class="demo-description">Floating musical notes that drift gently. Built for podcasts, music blogs, DJ portfolios, band pages.</p>
+        <div class="note">&#9835;</div>
+        <div class="note">&#9834;</div>
+        <div class="note">&#9833;</div>
+        <div class="note">&#9835;</div>
+        <div class="note">&#9834;</div>
+        <div class="note">&#9833;</div>
+        <div class="note">&#9835;</div>
+        <div style="position: relative; z-index: 1;">
+            <div class="placeholder-card">Latest episode</div>
+            <div class="placeholder-card">Featured track</div>
+            <div class="placeholder-card">Upcoming show</div>
+        </div>
+    </section>
+
+    <!-- TRAIL 5: Footsteps -->
+    <section class="demo-section trail-footsteps" id="footsteps">
+        <span class="demo-label">Footsteps</span>
+        <p class="demo-description">Alternating left-right shoe prints. For travel blogs, hiking, fitness, walkthrough guides.</p>
+        <div class="footstep"><svg viewBox="0 0 30 50"><ellipse cx="15" cy="35" rx="10" ry="14"/><ellipse cx="10" cy="10" rx="5" ry="7"/><ellipse cx="20" cy="8" rx="4" ry="6"/></svg></div>
+        <div class="footstep"><svg viewBox="0 0 30 50"><ellipse cx="15" cy="35" rx="10" ry="14"/><ellipse cx="10" cy="10" rx="5" ry="7"/><ellipse cx="20" cy="8" rx="4" ry="6"/></svg></div>
+        <div class="footstep"><svg viewBox="0 0 30 50"><ellipse cx="15" cy="35" rx="10" ry="14"/><ellipse cx="10" cy="10" rx="5" ry="7"/><ellipse cx="20" cy="8" rx="4" ry="6"/></svg></div>
+        <div class="footstep"><svg viewBox="0 0 30 50"><ellipse cx="15" cy="35" rx="10" ry="14"/><ellipse cx="10" cy="10" rx="5" ry="7"/><ellipse cx="20" cy="8" rx="4" ry="6"/></svg></div>
+        <div class="footstep"><svg viewBox="0 0 30 50"><ellipse cx="15" cy="35" rx="10" ry="14"/><ellipse cx="10" cy="10" rx="5" ry="7"/><ellipse cx="20" cy="8" rx="4" ry="6"/></svg></div>
+        <div class="footstep"><svg viewBox="0 0 30 50"><ellipse cx="15" cy="35" rx="10" ry="14"/><ellipse cx="10" cy="10" rx="5" ry="7"/><ellipse cx="20" cy="8" rx="4" ry="6"/></svg></div>
+        <div class="footstep"><svg viewBox="0 0 30 50"><ellipse cx="15" cy="35" rx="10" ry="14"/><ellipse cx="10" cy="10" rx="5" ry="7"/><ellipse cx="20" cy="8" rx="4" ry="6"/></svg></div>
+        <div class="footstep"><svg viewBox="0 0 30 50"><ellipse cx="15" cy="35" rx="10" ry="14"/><ellipse cx="10" cy="10" rx="5" ry="7"/><ellipse cx="20" cy="8" rx="4" ry="6"/></svg></div>
+        <div style="position: relative; z-index: 1;">
+            <div class="placeholder-card">Trailhead</div>
+            <div class="placeholder-card">Rest stop</div>
+            <div class="placeholder-card">Summit</div>
+        </div>
+    </section>
+
+    <!-- TRAIL 6: Stars / Sparkles -->
+    <section class="demo-section trail-stars" id="stars">
+        <span class="demo-label">Sparkles</span>
+        <p class="demo-description">Twinkling star shapes scattered across the page. Great for magic, fantasy, luxury, beauty, nightlife themes.</p>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div style="position: relative; z-index: 1;">
+            <div class="placeholder-card">Featured collection</div>
+            <div class="placeholder-card">New arrivals</div>
+            <div class="placeholder-card">Bestsellers</div>
+        </div>
+    </section>
+
+    <!-- TRAIL 7: Bubbles -->
+    <section class="demo-section trail-bubbles" id="bubbles">
+        <span class="demo-label">Bubbles</span>
+        <p class="demo-description">Floating translucent bubbles that rise gently. For aquatic, spa, drinks, cleaning, kids themes.</p>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div style="position: relative; z-index: 1;">
+            <div class="placeholder-card">Service 1</div>
+            <div class="placeholder-card">Service 2</div>
+            <div class="placeholder-card">Service 3</div>
+        </div>
+    </section>
+
+    <!-- TRAIL 8: Hearts -->
+    <section class="demo-section trail-hearts" id="hearts">
+        <span class="demo-label">Hearts</span>
+        <p class="demo-description">Softly pulsing hearts in various sizes. For weddings, romance, dating, Valentine's, love letters.</p>
+        <div class="heart-trail">&#10084;</div>
+        <div class="heart-trail">&#10084;</div>
+        <div class="heart-trail">&#10084;</div>
+        <div class="heart-trail">&#10084;</div>
+        <div class="heart-trail">&#10084;</div>
+        <div class="heart-trail">&#10084;</div>
+        <div class="heart-trail">&#10084;</div>
+        <div style="position: relative; z-index: 1;">
+            <div class="placeholder-card">Love story</div>
+            <div class="placeholder-card">Our gallery</div>
+            <div class="placeholder-card">RSVP</div>
+        </div>
+    </section>
+
+    <!-- TRAIL 9: Geometric Line -->
+    <section class="demo-section trail-geo" id="geo">
+        <span class="demo-label">Geometric Line</span>
+        <p class="demo-description">A connected-dots path that draws itself as you scroll. For tech, SaaS, startup, process/timeline pages.</p>
+        <div class="geo-line" id="geo-line">
+            <svg viewBox="0 0 200 800">
+                <path d="M100 0 L60 100 L140 200 L80 300 L120 400 L60 500 L140 600 L100 700 L100 800"/>
+                <circle cx="100" cy="0" r="4"/>
+                <circle cx="60" cy="100" r="4"/>
+                <circle cx="140" cy="200" r="4"/>
+                <circle cx="80" cy="300" r="4"/>
+                <circle cx="120" cy="400" r="4"/>
+                <circle cx="60" cy="500" r="4"/>
+                <circle cx="140" cy="600" r="4"/>
+                <circle cx="100" cy="700" r="4"/>
+            </svg>
+        </div>
+        <div style="position: relative; z-index: 1;">
+            <div class="placeholder-card">Step 1: Discovery</div>
+            <div class="placeholder-card">Step 2: Design</div>
+            <div class="placeholder-card">Step 3: Deliver</div>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer for all trail elements
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+        // Observe all trail elements
+        document.querySelectorAll('.paw, .leaf, .note, .footstep, .sparkle, .bubble, .heart-trail, .geo-line').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Dotted path grows with scroll
+        const dotSection = document.getElementById('dots');
+        const dotPath = document.getElementById('dot-path');
+        if (dotSection && dotPath) {
+            window.addEventListener('scroll', () => {
+                const rect = dotSection.getBoundingClientRect();
+                const sectionTop = rect.top;
+                const sectionHeight = rect.height;
+                const viewHeight = window.innerHeight;
+
+                if (sectionTop < viewHeight && sectionTop > -sectionHeight) {
+                    const progress = Math.min(1, Math.max(0, (viewHeight - sectionTop) / (sectionHeight + viewHeight)));
+                    dotPath.style.height = (progress * (sectionHeight - 100)) + 'px';
+                }
+            }, { passive: true });
+        }
+    </script>
+</body>
+</html>
