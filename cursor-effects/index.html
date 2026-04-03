@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cursor Effects — Theme Catalog</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0a0a0a;color:#e0e0e0;font-family:'Inter',system-ui,sans-serif;line-height:1.6;cursor:none}
+  h1{text-align:center;padding:3rem 1rem 1rem;font-size:2rem;letter-spacing:.05em;color:#fff}
+  .subtitle{text-align:center;color:#888;margin-bottom:2rem;font-size:.95rem}
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:1.5rem;max-width:1100px;margin:0 auto;padding:0 1.5rem 4rem;
+  }
+  .card{
+    background:#141414;border-radius:12px;overflow:hidden;
+    border:1px solid #222;transition:border-color .3s;
+  }
+  .card:hover{border-color:#E8C547}
+  .zone{
+    height:220px;display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;cursor:none;user-select:none;
+  }
+  .zone-label{color:#555;font-size:.85rem;pointer-events:none;z-index:2;position:relative}
+  .card-info{padding:1rem 1.25rem}
+  .card-name{font-weight:600;font-size:.9rem;color:#E8C547;letter-spacing:.04em;margin-bottom:.35rem}
+  .card-desc{color:#777;font-size:.8rem;line-height:1.5}
+
+  /* Global custom cursor (visible outside zones) */
+  .global-cursor{
+    position:fixed;width:20px;height:20px;border:2px solid #E8C547;
+    border-radius:50%;pointer-events:none;z-index:9999;
+    transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s;
+  }
+  .global-dot{
+    position:fixed;width:4px;height:4px;background:#E8C547;border-radius:50%;
+    pointer-events:none;z-index:10000;transform:translate(-50%,-50%);
+  }
+
+  /* ===== Trail canvases ===== */
+  .zone canvas{position:absolute;inset:0;pointer-events:none}
+
+  @media(max-width:600px){
+    body{cursor:auto}
+    h1{font-size:1.5rem}
+    .grid{grid-template-columns:1fr;padding:0 1rem 3rem}
+    .global-cursor,.global-dot{display:none}
+    .zone{cursor:auto}
+  }
+</style>
+</head>
+<body>
+
+<div class="global-cursor" id="gcursor"></div>
+<div class="global-dot" id="gdot"></div>
+
+<h1>Cursor Effects</h1>
+<p class="subtitle">8 custom cursor behaviors — hover inside each zone to preview</p>
+
+<div class="grid">
+
+  <!-- 1. Glow Trail -->
+  <div class="card">
+    <div class="zone" id="zone-glow">
+      <canvas></canvas>
+      <div class="zone-label">Glow Trail</div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Glow Trail</div>
+      <div class="card-desc">Fading radial glow follows cursor. Ambient, dreamy feel.</div>
+    </div>
+  </div>
+
+  <!-- 2. Spark Burst -->
+  <div class="card">
+    <div class="zone" id="zone-spark">
+      <canvas></canvas>
+      <div class="zone-label">Spark Burst</div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Spark Burst</div>
+      <div class="card-desc">Tiny particles scatter on movement. Energetic and festive.</div>
+    </div>
+  </div>
+
+  <!-- 3. Magnetic Pull -->
+  <div class="card">
+    <div class="zone" id="zone-magnetic">
+      <div class="zone-label">Magnetic Pull</div>
+      <div class="mag-dot" style="position:absolute;width:12px;height:12px;background:#E8C547;border-radius:50%;transition:transform .15s ease-out;pointer-events:none"></div>
+      <div class="mag-dot" style="position:absolute;width:8px;height:8px;background:#ff6b6b;border-radius:50%;transition:transform .25s ease-out;pointer-events:none"></div>
+      <div class="mag-dot" style="position:absolute;width:10px;height:10px;background:#4ecdc4;border-radius:50%;transition:transform .35s ease-out;pointer-events:none"></div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Magnetic Pull</div>
+      <div class="card-desc">Colored dots chase cursor with staggered spring timing.</div>
+    </div>
+  </div>
+
+  <!-- 4. Ink Drop -->
+  <div class="card">
+    <div class="zone" id="zone-ink">
+      <canvas></canvas>
+      <div class="zone-label">Ink Drop</div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Ink Drop</div>
+      <div class="card-desc">Expanding, fading circles on click. Artsy, hand-crafted vibe.</div>
+    </div>
+  </div>
+
+  <!-- 5. Crosshair -->
+  <div class="card">
+    <div class="zone" id="zone-crosshair">
+      <div class="zone-label">Crosshair</div>
+      <div class="ch-h" style="position:absolute;height:1px;width:100%;background:rgba(232,197,71,.3);pointer-events:none;top:50%"></div>
+      <div class="ch-v" style="position:absolute;width:1px;height:100%;background:rgba(232,197,71,.3);pointer-events:none;left:50%"></div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Crosshair</div>
+      <div class="card-desc">Full-width horizontal + vertical lines track cursor. Precision design tool feel.</div>
+    </div>
+  </div>
+
+  <!-- 6. Text Shadow -->
+  <div class="card">
+    <div class="zone" id="zone-textshadow">
+      <div class="zone-label" style="font-size:2rem;font-weight:700;color:#E8C547;transition:text-shadow .1s">HOVER</div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Text Shadow</div>
+      <div class="card-desc">Text shadow direction follows cursor position. Dynamic 3D typography.</div>
+    </div>
+  </div>
+
+  <!-- 7. Ripple Click -->
+  <div class="card">
+    <div class="zone" id="zone-ripple">
+      <div class="zone-label">Click anywhere</div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Ripple Click</div>
+      <div class="card-desc">Material-style expanding ring on click. Satisfying interaction feedback.</div>
+    </div>
+  </div>
+
+  <!-- 8. Spotlight Cone -->
+  <div class="card">
+    <div class="zone" id="zone-spotlight">
+      <div style="position:absolute;inset:0;background:#000;opacity:.85;pointer-events:none" class="sp-overlay"></div>
+      <div class="zone-label" style="position:absolute;color:#888">Hidden content revealed by cursor</div>
+      <div style="position:absolute;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.2) 0%,transparent 70%);pointer-events:none;transform:translate(-50%,-50%)" class="sp-light"></div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Spotlight Cone</div>
+      <div class="card-desc">Dark overlay with a bright circle following cursor. Reveals content beneath.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Global cursor
+const gc = document.getElementById('gcursor');
+const gd = document.getElementById('gdot');
+let mx = 0, my = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  gd.style.left = mx + 'px'; gd.style.top = my + 'px';
+  gc.style.left = mx + 'px'; gc.style.top = my + 'px';
+});
+
+// === 1. Glow Trail ===
+{
+  const zone = document.getElementById('zone-glow');
+  const canvas = zone.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const trail = [];
+  function resizeGlow(){canvas.width=zone.offsetWidth;canvas.height=zone.offsetHeight}
+  resizeGlow();
+  zone.addEventListener('mousemove', e => {
+    const r = zone.getBoundingClientRect();
+    trail.push({x:e.clientX-r.left, y:e.clientY-r.top, a:1});
+    if(trail.length>30) trail.shift();
+  });
+  function drawGlow(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    trail.forEach((p,i)=>{
+      p.a -= .03;
+      if(p.a>0){
+        const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,30);
+        g.addColorStop(0,`rgba(232,197,71,${p.a*.5})`);
+        g.addColorStop(1,'transparent');
+        ctx.fillStyle=g;
+        ctx.beginPath();ctx.arc(p.x,p.y,30,0,Math.PI*2);ctx.fill();
+      }
+    });
+    requestAnimationFrame(drawGlow);
+  }
+  drawGlow();
+}
+
+// === 2. Spark Burst ===
+{
+  const zone = document.getElementById('zone-spark');
+  const canvas = zone.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const sparks = [];
+  function resizeSpark(){canvas.width=zone.offsetWidth;canvas.height=zone.offsetHeight}
+  resizeSpark();
+  zone.addEventListener('mousemove', e => {
+    const r = zone.getBoundingClientRect();
+    for(let i=0;i<2;i++){
+      sparks.push({
+        x:e.clientX-r.left, y:e.clientY-r.top,
+        vx:(Math.random()-.5)*4, vy:(Math.random()-.5)*4,
+        life:1, size:Math.random()*2+1
+      });
+    }
+    if(sparks.length>100) sparks.splice(0,sparks.length-100);
+  });
+  function drawSpark(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(let i=sparks.length-1;i>=0;i--){
+      const s=sparks[i];
+      s.x+=s.vx;s.y+=s.vy;s.life-=.025;s.vy+=.05;
+      if(s.life<=0){sparks.splice(i,1);continue}
+      ctx.fillStyle=`rgba(232,197,71,${s.life})`;
+      ctx.beginPath();ctx.arc(s.x,s.y,s.size,0,Math.PI*2);ctx.fill();
+    }
+    requestAnimationFrame(drawSpark);
+  }
+  drawSpark();
+}
+
+// === 3. Magnetic Pull ===
+{
+  const zone = document.getElementById('zone-magnetic');
+  const dots = zone.querySelectorAll('.mag-dot');
+  zone.addEventListener('mousemove', e => {
+    const r = zone.getBoundingClientRect();
+    const x = e.clientX - r.left;
+    const y = e.clientY - r.top;
+    dots.forEach((d,i) => {
+      const ox = (Math.random()-.5)*20;
+      const oy = (Math.random()-.5)*20;
+      d.style.transform = `translate(${x-r.width/2+ox}px, ${y-r.height/2+oy}px)`;
+    });
+  });
+}
+
+// === 4. Ink Drop ===
+{
+  const zone = document.getElementById('zone-ink');
+  const canvas = zone.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const drops = [];
+  function resizeInk(){canvas.width=zone.offsetWidth;canvas.height=zone.offsetHeight}
+  resizeInk();
+  zone.addEventListener('click', e => {
+    const r = zone.getBoundingClientRect();
+    drops.push({x:e.clientX-r.left, y:e.clientY-r.top, radius:0, life:1});
+  });
+  function drawInk(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(let i=drops.length-1;i>=0;i--){
+      const d=drops[i];
+      d.radius+=2;d.life-=.015;
+      if(d.life<=0){drops.splice(i,1);continue}
+      ctx.strokeStyle=`rgba(232,197,71,${d.life})`;
+      ctx.lineWidth=2;
+      ctx.beginPath();ctx.arc(d.x,d.y,d.radius,0,Math.PI*2);ctx.stroke();
+    }
+    requestAnimationFrame(drawInk);
+  }
+  drawInk();
+}
+
+// === 5. Crosshair ===
+{
+  const zone = document.getElementById('zone-crosshair');
+  const ch = zone.querySelector('.ch-h');
+  const cv = zone.querySelector('.ch-v');
+  zone.addEventListener('mousemove', e => {
+    const r = zone.getBoundingClientRect();
+    ch.style.top = (e.clientY - r.top) + 'px';
+    cv.style.left = (e.clientX - r.left) + 'px';
+  });
+}
+
+// === 6. Text Shadow ===
+{
+  const zone = document.getElementById('zone-textshadow');
+  const label = zone.querySelector('.zone-label');
+  zone.addEventListener('mousemove', e => {
+    const r = zone.getBoundingClientRect();
+    const dx = ((e.clientX - r.left) / r.width - .5) * 20;
+    const dy = ((e.clientY - r.top) / r.height - .5) * 20;
+    label.style.textShadow = `${dx}px ${dy}px 15px rgba(232,197,71,.6)`;
+  });
+}
+
+// === 7. Ripple Click ===
+{
+  const zone = document.getElementById('zone-ripple');
+  zone.addEventListener('click', e => {
+    const r = zone.getBoundingClientRect();
+    const ripple = document.createElement('div');
+    Object.assign(ripple.style, {
+      position:'absolute', left:(e.clientX-r.left)+'px', top:(e.clientY-r.top)+'px',
+      width:'0', height:'0', borderRadius:'50%',
+      border:'2px solid rgba(232,197,71,.8)',
+      transform:'translate(-50%,-50%)', pointerEvents:'none',
+      transition:'width .6s ease-out, height .6s ease-out, opacity .6s ease-out',
+    });
+    zone.appendChild(ripple);
+    requestAnimationFrame(()=>{
+      ripple.style.width='150px';ripple.style.height='150px';ripple.style.opacity='0';
+    });
+    setTimeout(()=>ripple.remove(),700);
+  });
+}
+
+// === 8. Spotlight ===
+{
+  const zone = document.getElementById('zone-spotlight');
+  const overlay = zone.querySelector('.sp-overlay');
+  const light = zone.querySelector('.sp-light');
+  zone.addEventListener('mousemove', e => {
+    const r = zone.getBoundingClientRect();
+    const x = e.clientX - r.left;
+    const y = e.clientY - r.top;
+    light.style.left = x + 'px';
+    light.style.top = y + 'px';
+    overlay.style.background = `radial-gradient(circle 60px at ${x}px ${y}px, transparent 0%, rgba(0,0,0,.85) 100%)`;
+  });
+}
+
+// Resize handlers
+window.addEventListener('resize', ()=>{
+  document.querySelectorAll('.zone canvas').forEach(c=>{
+    const z=c.parentElement;c.width=z.offsetWidth;c.height=z.offsetHeight;
+  });
+});
+</script>
+
+</body>
+</html>

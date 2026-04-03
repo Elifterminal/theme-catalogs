@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decorative Elements — Theme Catalog</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0a0a0a;color:#e0e0e0;font-family:'Inter',system-ui,sans-serif;line-height:1.6}
+  h1{text-align:center;padding:3rem 1rem 1rem;font-size:2rem;letter-spacing:.05em;color:#fff}
+  .subtitle{text-align:center;color:#888;margin-bottom:2rem;font-size:.95rem}
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:1.5rem;max-width:1100px;margin:0 auto;padding:0 1.5rem 4rem;
+  }
+  .card{
+    background:#141414;border-radius:12px;overflow:hidden;
+    border:1px solid #222;transition:border-color .3s;
+  }
+  .card:hover{border-color:#E8C547}
+  .card-stage{
+    height:200px;display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;background:#111;
+  }
+  .card-info{padding:1rem 1.25rem}
+  .card-name{font-weight:600;font-size:.9rem;color:#E8C547;letter-spacing:.04em;margin-bottom:.35rem}
+  .card-desc{color:#777;font-size:.8rem;line-height:1.5}
+  .card-use{color:#555;font-size:.72rem;margin-top:.5rem;font-style:italic}
+
+  /* ===== 1. Floating Particles ===== */
+  .particles{position:absolute;inset:0}
+  .particles span{
+    position:absolute;width:4px;height:4px;background:#E8C547;border-radius:50%;
+    animation:float-up linear infinite;opacity:0;
+  }
+  .particles span:nth-child(1){left:10%;animation-duration:6s;animation-delay:0s}
+  .particles span:nth-child(2){left:25%;animation-duration:8s;animation-delay:1s}
+  .particles span:nth-child(3){left:40%;animation-duration:5s;animation-delay:2s}
+  .particles span:nth-child(4){left:55%;animation-duration:7s;animation-delay:.5s}
+  .particles span:nth-child(5){left:70%;animation-duration:6s;animation-delay:1.5s}
+  .particles span:nth-child(6){left:85%;animation-duration:9s;animation-delay:3s}
+  .particles span:nth-child(7){left:50%;animation-duration:5.5s;animation-delay:2.5s}
+  .particles span:nth-child(8){left:15%;animation-duration:7.5s;animation-delay:4s}
+  @keyframes float-up{
+    0%{transform:translateY(200px) scale(0);opacity:0}
+    20%{opacity:.8}
+    80%{opacity:.4}
+    100%{transform:translateY(-20px) scale(1);opacity:0}
+  }
+
+  /* ===== 2. Grain Overlay ===== */
+  .grain{position:absolute;inset:0;opacity:.15;pointer-events:none}
+  .grain::after{
+    content:'';position:absolute;inset:-50%;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:128px;animation:grain-shift 4s steps(10) infinite;
+  }
+  @keyframes grain-shift{to{transform:translate(10px,10px)}}
+  .grain-text{position:relative;z-index:1;color:#666;font-size:.85rem}
+
+  /* ===== 3. Glow Orb ===== */
+  .glow-orb{
+    width:80px;height:80px;border-radius:50%;
+    background:radial-gradient(circle, #E8C547 0%, transparent 70%);
+    animation:orb-breathe 3s ease-in-out infinite;
+    filter:blur(12px);
+  }
+  @keyframes orb-breathe{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.3);opacity:.8}}
+
+  /* ===== 4. Corner Flourish ===== */
+  .flourish-box{
+    width:200px;height:120px;position:relative;
+    border:1px solid #333;display:flex;align-items:center;justify-content:center;
+    color:#555;font-size:.8rem;
+  }
+  .flourish-box::before,.flourish-box::after{
+    content:'';position:absolute;width:30px;height:30px;
+    border-color:#E8C547;border-style:solid;
+  }
+  .flourish-box::before{top:-1px;left:-1px;border-width:2px 0 0 2px}
+  .flourish-box::after{bottom:-1px;right:-1px;border-width:0 2px 2px 0}
+
+  /* ===== 5. Animated Gradient Border ===== */
+  .gradient-border{
+    width:200px;height:120px;position:relative;display:flex;
+    align-items:center;justify-content:center;color:#555;font-size:.8rem;
+    background:#141414;border-radius:8px;
+  }
+  .gradient-border::before{
+    content:'';position:absolute;inset:-2px;border-radius:10px;
+    background:conic-gradient(from 0deg, #E8C547, #ff6b6b, #4ecdc4, #E8C547);
+    animation:border-rotate 3s linear infinite;z-index:-1;
+  }
+  .gradient-border::after{
+    content:'';position:absolute;inset:0;background:#141414;border-radius:8px;z-index:-1;
+  }
+  @keyframes border-rotate{to{transform:rotate(360deg)}}
+
+  /* ===== 6. Noise Texture ===== */
+  .noise-box{
+    width:200px;height:120px;position:relative;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg, #1a1a2e, #16213e);border-radius:8px;
+  }
+  .noise-box::after{
+    content:'';position:absolute;inset:0;opacity:.08;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .noise-box span{position:relative;z-index:1;color:#666;font-size:.8rem}
+
+  /* ===== 7. Spotlight Follow ===== */
+  .spotlight{
+    width:100%;height:100%;position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .spotlight-bg{
+    position:absolute;inset:0;
+    background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(232,197,71,.15) 0%, transparent 50%);
+    transition:background .1s;
+  }
+  .spotlight-text{position:relative;z-index:1;color:#666;font-size:.8rem}
+
+  /* ===== 8. Parallax Layers ===== */
+  .parallax-demo{position:absolute;inset:0;overflow:hidden}
+  .parallax-demo .layer{
+    position:absolute;bottom:0;left:0;right:0;height:60%;
+    display:flex;align-items:flex-end;justify-content:center;
+  }
+  .parallax-demo .layer span{
+    display:block;width:100%;height:100%;border-radius:60% 60% 0 0;
+  }
+  .parallax-demo .l1 span{background:#1a1a1a;transform:translateY(20px)}
+  .parallax-demo .l2 span{background:#161616;width:90%;height:80%;transform:translateY(10px)}
+  .parallax-demo .l3 span{background:#121212;width:80%;height:60%}
+  .parallax-text{position:absolute;top:30%;width:100%;text-align:center;color:#666;font-size:.8rem;z-index:5}
+
+  /* ===== 9. Text Reveal ===== */
+  .text-reveal{overflow:hidden;position:relative}
+  .text-reveal span{
+    display:inline-block;color:#E8C547;font-size:1.2rem;font-weight:600;
+    letter-spacing:.1em;animation:text-slide-up 2s ease-out infinite;
+  }
+  @keyframes text-slide-up{
+    0%{transform:translateY(100%);opacity:0}
+    20%,80%{transform:translateY(0);opacity:1}
+    100%{transform:translateY(-100%);opacity:0}
+  }
+
+  /* ===== 10. Glassmorphism ===== */
+  .glass-card{
+    width:180px;height:100px;
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.1);border-radius:12px;
+    display:flex;align-items:center;justify-content:center;color:#aaa;font-size:.8rem;
+  }
+  .glass-bg{
+    position:absolute;inset:0;
+    background:linear-gradient(135deg, #E8C547 0%, #ff6b6b 50%, #4ecdc4 100%);
+    opacity:.2;filter:blur(40px);
+  }
+
+  @media(max-width:600px){
+    h1{font-size:1.5rem}
+    .grid{grid-template-columns:1fr;padding:0 1rem 3rem}
+  }
+</style>
+</head>
+<body>
+
+<h1>Decorative Elements</h1>
+<p class="subtitle">10 ambient effects and decorative treatments for theme backgrounds and sections</p>
+
+<div class="grid">
+
+  <!-- 1. Floating Particles -->
+  <div class="card">
+    <div class="card-stage">
+      <div class="particles">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Floating Particles</div>
+      <div class="card-desc">Rising dots with fade. Adds life to dark backgrounds without distraction.</div>
+      <div class="card-use">Hero sections, feature backgrounds</div>
+    </div>
+  </div>
+
+  <!-- 2. Film Grain -->
+  <div class="card">
+    <div class="card-stage">
+      <div class="grain"></div>
+      <div class="grain-text">Subtle film grain overlay</div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Film Grain</div>
+      <div class="card-desc">SVG noise texture with stepping animation. Vintage photography feel.</div>
+      <div class="card-use">Photography, film, vintage themes</div>
+    </div>
+  </div>
+
+  <!-- 3. Glow Orb -->
+  <div class="card">
+    <div class="card-stage">
+      <div class="glow-orb"></div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Glow Orb</div>
+      <div class="card-desc">Breathing radial gradient. Ambient accent light behind hero content.</div>
+      <div class="card-use">Landing pages, CTA backgrounds</div>
+    </div>
+  </div>
+
+  <!-- 4. Corner Flourish -->
+  <div class="card">
+    <div class="card-stage">
+      <div class="flourish-box">Content Area</div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Corner Flourish</div>
+      <div class="card-desc">Accent-colored corner brackets framing content. Elegant without being busy.</div>
+      <div class="card-use">Quote blocks, featured content, testimonials</div>
+    </div>
+  </div>
+
+  <!-- 5. Animated Gradient Border -->
+  <div class="card">
+    <div class="card-stage">
+      <div class="gradient-border">Content Area</div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Gradient Border</div>
+      <div class="card-desc">Rotating conic gradient border. High-impact for featured cards.</div>
+      <div class="card-use">Featured posts, CTAs, pricing cards</div>
+    </div>
+  </div>
+
+  <!-- 6. Noise Texture -->
+  <div class="card">
+    <div class="card-stage">
+      <div class="noise-box"><span>Textured surface</span></div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Noise Texture</div>
+      <div class="card-desc">SVG turbulence filter overlay. Adds physical depth to flat surfaces.</div>
+      <div class="card-use">Cards, headers, section backgrounds</div>
+    </div>
+  </div>
+
+  <!-- 7. Spotlight Follow -->
+  <div class="card">
+    <div class="card-stage" onmousemove="const r=this.getBoundingClientRect();this.querySelector('.spotlight-bg').style.setProperty('--mx',(((event.clientX-r.left)/r.width)*100)+'%');this.querySelector('.spotlight-bg').style.setProperty('--my',(((event.clientY-r.top)/r.height)*100)+'%')">
+      <div class="spotlight">
+        <div class="spotlight-bg"></div>
+        <div class="spotlight-text">Move cursor here</div>
+      </div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Spotlight Follow</div>
+      <div class="card-desc">Radial gradient tracks the cursor. Subtle interactive depth.</div>
+      <div class="card-use">Hero areas, card hover states</div>
+    </div>
+  </div>
+
+  <!-- 8. Parallax Layers -->
+  <div class="card">
+    <div class="card-stage">
+      <div class="parallax-demo">
+        <div class="parallax-text">Layered depth</div>
+        <div class="layer l1"><span></span></div>
+        <div class="layer l2"><span></span></div>
+        <div class="layer l3"><span></span></div>
+      </div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Parallax Layers</div>
+      <div class="card-desc">Overlapping shapes at different depths. Mountain/landscape silhouette effect.</div>
+      <div class="card-use">Hero backgrounds, about sections</div>
+    </div>
+  </div>
+
+  <!-- 9. Text Reveal -->
+  <div class="card">
+    <div class="card-stage">
+      <div class="text-reveal"><span>LUMIERE</span></div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Text Reveal</div>
+      <div class="card-desc">Slide-up text animation with mask. Looping brand name or tagline.</div>
+      <div class="card-use">Logo reveals, hero text, section headings</div>
+    </div>
+  </div>
+
+  <!-- 10. Glassmorphism -->
+  <div class="card">
+    <div class="card-stage">
+      <div class="glass-bg"></div>
+      <div class="glass-card">Frosted glass</div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">Glassmorphism</div>
+      <div class="card-desc">Backdrop blur with semi-transparent fill. Modern, layered UI aesthetic.</div>
+      <div class="card-use">Overlays, nav bars, modal cards</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

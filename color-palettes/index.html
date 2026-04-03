@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Color Palettes — Theme Catalog</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0a0a0a;color:#e0e0e0;font-family:'Inter',system-ui,sans-serif;line-height:1.6}
+  h1{text-align:center;padding:3rem 1rem 1rem;font-size:2rem;letter-spacing:.05em;color:#fff}
+  .subtitle{text-align:center;color:#888;margin-bottom:2rem;font-size:.95rem}
+  .catalog{max-width:1000px;margin:0 auto;padding:0 1.5rem 4rem}
+
+  .category{margin-bottom:3rem}
+  .cat-title{
+    font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;
+    color:#E8C547;margin-bottom:1.25rem;padding-bottom:.5rem;
+    border-bottom:1px solid #222;
+  }
+  .palettes{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem}
+
+  .palette{
+    background:#141414;border-radius:10px;overflow:hidden;
+    border:1px solid #222;transition:border-color .3s,transform .2s;
+    cursor:pointer;
+  }
+  .palette:hover{border-color:#E8C547;transform:translateY(-2px)}
+
+  .swatches{display:flex;height:80px}
+  .swatches span{flex:1;transition:flex .3s}
+  .palette:hover .swatches span:hover{flex:2}
+
+  .palette-info{padding:.75rem 1rem}
+  .palette-name{font-weight:600;font-size:.85rem;color:#ddd;margin-bottom:.25rem}
+  .palette-desc{color:#666;font-size:.75rem;line-height:1.4}
+  .palette-codes{
+    display:flex;gap:6px;margin-top:.5rem;flex-wrap:wrap;
+  }
+  .palette-codes code{
+    font-size:.65rem;background:#1e1e1e;color:#999;padding:2px 6px;
+    border-radius:3px;font-family:'JetBrains Mono',monospace;
+  }
+
+  @media(max-width:600px){
+    h1{font-size:1.5rem}
+    .palettes{grid-template-columns:1fr}
+    .catalog{padding:0 1rem 3rem}
+  }
+</style>
+</head>
+<body>
+
+<h1>Color Palettes</h1>
+<p class="subtitle">Curated palettes for Ghost themes — grouped by mood and audience</p>
+
+<div class="catalog">
+
+  <!-- DARK / MOODY -->
+  <div class="category">
+    <h2 class="cat-title">Dark &amp; Moody</h2>
+    <div class="palettes">
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#0a0a0a"></span>
+          <span style="background:#1a1a1a"></span>
+          <span style="background:#2d2d2d"></span>
+          <span style="background:#E8C547"></span>
+          <span style="background:#f5f0e1"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Lumiere (Gold on Dark)</div>
+          <div class="palette-desc">Our photography theme default. Warm gold accent on deep black.</div>
+          <div class="palette-codes"><code>#0a0a0a</code><code>#1a1a1a</code><code>#2d2d2d</code><code>#E8C547</code><code>#f5f0e1</code></div>
+        </div>
+      </div>
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#0d1117"></span>
+          <span style="background:#161b22"></span>
+          <span style="background:#21262d"></span>
+          <span style="background:#58a6ff"></span>
+          <span style="background:#c9d1d9"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Midnight Code</div>
+          <div class="palette-desc">GitHub-dark inspired. Clean blue accent for dev/tech themes.</div>
+          <div class="palette-codes"><code>#0d1117</code><code>#161b22</code><code>#21262d</code><code>#58a6ff</code><code>#c9d1d9</code></div>
+        </div>
+      </div>
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#0f0f0f"></span>
+          <span style="background:#1a1a2e"></span>
+          <span style="background:#16213e"></span>
+          <span style="background:#e94560"></span>
+          <span style="background:#eee"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Neon Noir</div>
+          <div class="palette-desc">Deep navy with hot pink. Cyberpunk, nightlife, music.</div>
+          <div class="palette-codes"><code>#0f0f0f</code><code>#1a1a2e</code><code>#16213e</code><code>#e94560</code><code>#eee</code></div>
+        </div>
+      </div>
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#0b0c10"></span>
+          <span style="background:#1f2833"></span>
+          <span style="background:#c5c6c7"></span>
+          <span style="background:#66fcf1"></span>
+          <span style="background:#45a29e"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Terminal</div>
+          <div class="palette-desc">Matrix-green on charcoal. Hacker, CLI, cybersecurity vibes.</div>
+          <div class="palette-codes"><code>#0b0c10</code><code>#1f2833</code><code>#c5c6c7</code><code>#66fcf1</code><code>#45a29e</code></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WARM / EARTHY -->
+  <div class="category">
+    <h2 class="cat-title">Warm &amp; Earthy</h2>
+    <div class="palettes">
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#2c1810"></span>
+          <span style="background:#5c3a2e"></span>
+          <span style="background:#c9a96e"></span>
+          <span style="background:#e6d5b8"></span>
+          <span style="background:#f5f0e1"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Leather &amp; Brass</div>
+          <div class="palette-desc">Rich browns and warm golds. Artisan, coffee, handcraft.</div>
+          <div class="palette-codes"><code>#2c1810</code><code>#5c3a2e</code><code>#c9a96e</code><code>#e6d5b8</code><code>#f5f0e1</code></div>
+        </div>
+      </div>
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#1a1a12"></span>
+          <span style="background:#2d3a1e"></span>
+          <span style="background:#5c7a3a"></span>
+          <span style="background:#a8c686"></span>
+          <span style="background:#f0ead6"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Forest Floor</div>
+          <div class="palette-desc">Deep greens and natural cream. Outdoor, nature, sustainability.</div>
+          <div class="palette-codes"><code>#1a1a12</code><code>#2d3a1e</code><code>#5c7a3a</code><code>#a8c686</code><code>#f0ead6</code></div>
+        </div>
+      </div>
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#1c1410"></span>
+          <span style="background:#8b4513"></span>
+          <span style="background:#cd853f"></span>
+          <span style="background:#deb887"></span>
+          <span style="background:#faf0e6"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Terracotta</div>
+          <div class="palette-desc">Warm clay tones. Pottery, southwest, bohemian design.</div>
+          <div class="palette-codes"><code>#1c1410</code><code>#8b4513</code><code>#cd853f</code><code>#deb887</code><code>#faf0e6</code></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COOL / MINIMAL -->
+  <div class="category">
+    <h2 class="cat-title">Cool &amp; Minimal</h2>
+    <div class="palettes">
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#fafafa"></span>
+          <span style="background:#eee"></span>
+          <span style="background:#999"></span>
+          <span style="background:#333"></span>
+          <span style="background:#111"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Grayscale</div>
+          <div class="palette-desc">Pure monochrome. Timeless editorial, black-and-white photography.</div>
+          <div class="palette-codes"><code>#fafafa</code><code>#eee</code><code>#999</code><code>#333</code><code>#111</code></div>
+        </div>
+      </div>
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#f7f7f7"></span>
+          <span style="background:#e8e8e8"></span>
+          <span style="background:#b0b0b0"></span>
+          <span style="background:#2563eb"></span>
+          <span style="background:#1e293b"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Clean Blue</div>
+          <div class="palette-desc">Light with single blue accent. SaaS, corporate, professional blogs.</div>
+          <div class="palette-codes"><code>#f7f7f7</code><code>#e8e8e8</code><code>#b0b0b0</code><code>#2563eb</code><code>#1e293b</code></div>
+        </div>
+      </div>
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#fefce8"></span>
+          <span style="background:#fef3c7"></span>
+          <span style="background:#92400e"></span>
+          <span style="background:#451a03"></span>
+          <span style="background:#1c1917"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Parchment</div>
+          <div class="palette-desc">Warm whites and deep browns. Classic literature, book review, long-form.</div>
+          <div class="palette-codes"><code>#fefce8</code><code>#fef3c7</code><code>#92400e</code><code>#451a03</code><code>#1c1917</code></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- VIBRANT / CREATIVE -->
+  <div class="category">
+    <h2 class="cat-title">Vibrant &amp; Creative</h2>
+    <div class="palettes">
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#0a0a0a"></span>
+          <span style="background:#6c3fc5"></span>
+          <span style="background:#ff6ec7"></span>
+          <span style="background:#00fff5"></span>
+          <span style="background:#f0f0f0"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Synthwave</div>
+          <div class="palette-desc">Purple, pink, cyan on black. Retro-future, AI art, gaming.</div>
+          <div class="palette-codes"><code>#0a0a0a</code><code>#6c3fc5</code><code>#ff6ec7</code><code>#00fff5</code><code>#f0f0f0</code></div>
+        </div>
+      </div>
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#1a1a2e"></span>
+          <span style="background:#ff5e5b"></span>
+          <span style="background:#ffed66"></span>
+          <span style="background:#00cecb"></span>
+          <span style="background:#fffffc"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Pop Art</div>
+          <div class="palette-desc">Bold primaries on dark. Illustration, comics, street art.</div>
+          <div class="palette-codes"><code>#1a1a2e</code><code>#ff5e5b</code><code>#ffed66</code><code>#00cecb</code><code>#fffffc</code></div>
+        </div>
+      </div>
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#0f0f0f"></span>
+          <span style="background:#ff4500"></span>
+          <span style="background:#ff8c00"></span>
+          <span style="background:#ffd700"></span>
+          <span style="background:#fff8dc"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Ember</div>
+          <div class="palette-desc">Fire gradient — orange to gold. Food, fitness, high-energy brands.</div>
+          <div class="palette-codes"><code>#0f0f0f</code><code>#ff4500</code><code>#ff8c00</code><code>#ffd700</code><code>#fff8dc</code></div>
+        </div>
+      </div>
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#0a0a14"></span>
+          <span style="background:#2d1b69"></span>
+          <span style="background:#5b2c8a"></span>
+          <span style="background:#c77dff"></span>
+          <span style="background:#e0aaff"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Amethyst</div>
+          <div class="palette-desc">Deep to light purple. Wellness, spirituality, luxury brands.</div>
+          <div class="palette-codes"><code>#0a0a14</code><code>#2d1b69</code><code>#5b2c8a</code><code>#c77dff</code><code>#e0aaff</code></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NICHE-SPECIFIC -->
+  <div class="category">
+    <h2 class="cat-title">Niche-Specific</h2>
+    <div class="palettes">
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#1a1a1a"></span>
+          <span style="background:#2a2a2a"></span>
+          <span style="background:#cc0000"></span>
+          <span style="background:#ff0000"></span>
+          <span style="background:#ffffff"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Tattoo Parlor</div>
+          <div class="palette-desc">Black and red. Bold, edgy. Tattoo artists, alternative culture.</div>
+          <div class="palette-codes"><code>#1a1a1a</code><code>#2a2a2a</code><code>#cc0000</code><code>#ff0000</code><code>#ffffff</code></div>
+        </div>
+      </div>
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#fdf6e3"></span>
+          <span style="background:#eee8d5"></span>
+          <span style="background:#b8a88a"></span>
+          <span style="background:#d4a574"></span>
+          <span style="background:#2b1810"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Bakery</div>
+          <div class="palette-desc">Warm cream and toast. Food blogs, bakeries, recipe sites.</div>
+          <div class="palette-codes"><code>#fdf6e3</code><code>#eee8d5</code><code>#b8a88a</code><code>#d4a574</code><code>#2b1810</code></div>
+        </div>
+      </div>
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#0c1821"></span>
+          <span style="background:#1b2838"></span>
+          <span style="background:#2a475e"></span>
+          <span style="background:#66c0f4"></span>
+          <span style="background:#c7d5e0"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Gaming</div>
+          <div class="palette-desc">Steam-inspired dark blue. Gaming, esports, tech reviews.</div>
+          <div class="palette-codes"><code>#0c1821</code><code>#1b2838</code><code>#2a475e</code><code>#66c0f4</code><code>#c7d5e0</code></div>
+        </div>
+      </div>
+
+      <div class="palette">
+        <div class="swatches">
+          <span style="background:#f8f5f0"></span>
+          <span style="background:#e8ddd3"></span>
+          <span style="background:#c4a882"></span>
+          <span style="background:#8b7355"></span>
+          <span style="background:#3d2b1f"></span>
+        </div>
+        <div class="palette-info">
+          <div class="palette-name">Vintage Film</div>
+          <div class="palette-desc">Sepia tones. Film photography, classic cars, antiques.</div>
+          <div class="palette-codes"><code>#f8f5f0</code><code>#e8ddd3</code><code>#c4a882</code><code>#8b7355</code><code>#3d2b1f</code></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Click to copy hex code
+document.querySelectorAll('.palette-codes code').forEach(el => {
+  el.style.cursor = 'pointer';
+  el.title = 'Click to copy';
+  el.addEventListener('click', () => {
+    navigator.clipboard.writeText(el.textContent).then(() => {
+      const orig = el.textContent;
+      el.textContent = 'Copied!';
+      el.style.color = '#E8C547';
+      setTimeout(() => { el.textContent = orig; el.style.color = ''; }, 800);
+    });
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading Animations — Theme Catalog</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0a0a0a;color:#e0e0e0;font-family:'Inter',system-ui,sans-serif;line-height:1.6}
+  h1{text-align:center;padding:3rem 1rem 1rem;font-size:2rem;letter-spacing:.05em;color:#fff}
+  .subtitle{text-align:center;color:#888;margin-bottom:2rem;font-size:.95rem}
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:1.5rem;max-width:1100px;margin:0 auto;padding:0 1.5rem 4rem;
+  }
+  .card{
+    background:#141414;border-radius:12px;padding:2rem 1.5rem;
+    display:flex;flex-direction:column;align-items:center;gap:1.25rem;
+    border:1px solid #222;transition:border-color .3s;
+  }
+  .card:hover{border-color:#E8C547}
+  .card-stage{height:100px;display:flex;align-items:center;justify-content:center;width:100%}
+  .card-name{font-weight:600;font-size:.9rem;color:#E8C547;letter-spacing:.04em}
+  .card-desc{color:#777;font-size:.78rem;text-align:center;line-height:1.5}
+  .card-tech{color:#555;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em}
+
+  /* ===== 1. Spinner Ring ===== */
+  .spinner-ring{
+    width:40px;height:40px;border:3px solid #333;border-top-color:#E8C547;
+    border-radius:50%;animation:spin 1s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ===== 2. Pulse Dot ===== */
+  .pulse-dot{
+    width:16px;height:16px;background:#E8C547;border-radius:50%;
+    animation:pulse-scale 1.2s ease-in-out infinite;
+  }
+  @keyframes pulse-scale{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(2.5);opacity:0}}
+
+  /* ===== 3. Three Bounce ===== */
+  .three-bounce{display:flex;gap:8px}
+  .three-bounce span{
+    width:12px;height:12px;background:#E8C547;border-radius:50%;
+    animation:bounce-dot 1.4s ease-in-out infinite;
+  }
+  .three-bounce span:nth-child(2){animation-delay:.2s}
+  .three-bounce span:nth-child(3){animation-delay:.4s}
+  @keyframes bounce-dot{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+
+  /* ===== 4. Bar Wave ===== */
+  .bar-wave{display:flex;gap:4px;align-items:end;height:40px}
+  .bar-wave span{
+    width:5px;background:#E8C547;border-radius:2px;
+    animation:bar-stretch 1.2s ease-in-out infinite;
+  }
+  .bar-wave span:nth-child(1){animation-delay:0s}
+  .bar-wave span:nth-child(2){animation-delay:.1s}
+  .bar-wave span:nth-child(3){animation-delay:.2s}
+  .bar-wave span:nth-child(4){animation-delay:.3s}
+  .bar-wave span:nth-child(5){animation-delay:.4s}
+  @keyframes bar-stretch{0%,40%,100%{height:12px}20%{height:40px}}
+
+  /* ===== 5. Orbit ===== */
+  .orbit{position:relative;width:50px;height:50px}
+  .orbit-track{
+    width:50px;height:50px;border:2px solid #333;border-radius:50%;position:absolute;
+  }
+  .orbit-dot{
+    width:10px;height:10px;background:#E8C547;border-radius:50%;
+    position:absolute;top:-5px;left:50%;margin-left:-5px;
+    animation:orbit-spin 1.5s linear infinite;
+    transform-origin:5px 30px;
+  }
+  @keyframes orbit-spin{to{transform:rotate(360deg)}}
+
+  /* ===== 6. Skeleton Shimmer ===== */
+  .skeleton-shimmer{
+    width:180px;display:flex;flex-direction:column;gap:8px;
+  }
+  .skeleton-shimmer span{
+    height:10px;border-radius:4px;
+    background:linear-gradient(90deg,#222 25%,#333 50%,#222 75%);
+    background-size:200% 100%;
+    animation:shimmer 1.5s infinite;
+  }
+  .skeleton-shimmer span:nth-child(2){width:70%}
+  .skeleton-shimmer span:nth-child(3){width:85%}
+  @keyframes shimmer{to{background-position:-200% 0}}
+
+  /* ===== 7. Typing Dots ===== */
+  .typing-dots{display:flex;gap:6px;padding:10px 16px;background:#1e1e1e;border-radius:20px}
+  .typing-dots span{
+    width:8px;height:8px;background:#888;border-radius:50%;
+    animation:typing-jump .8s ease-in-out infinite;
+  }
+  .typing-dots span:nth-child(2){animation-delay:.15s}
+  .typing-dots span:nth-child(3){animation-delay:.3s}
+  @keyframes typing-jump{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-8px)}}
+
+  /* ===== 8. Progress Bar ===== */
+  .progress-bar{width:180px;height:4px;background:#222;border-radius:2px;overflow:hidden}
+  .progress-bar span{
+    display:block;width:40%;height:100%;background:#E8C547;border-radius:2px;
+    animation:progress-slide 1.5s ease-in-out infinite;
+  }
+  @keyframes progress-slide{0%{transform:translateX(-100%)}100%{transform:translateX(350%)}}
+
+  /* ===== 9. Flip Card ===== */
+  .flip-square{
+    width:30px;height:30px;background:#E8C547;border-radius:4px;
+    animation:flip-card 1.2s ease-in-out infinite;
+  }
+  @keyframes flip-card{
+    0%{transform:perspective(120px) rotateX(0) rotateY(0)}
+    50%{transform:perspective(120px) rotateX(-180deg) rotateY(0)}
+    100%{transform:perspective(120px) rotateX(-180deg) rotateY(-180deg)}
+  }
+
+  /* ===== 10. Ripple ===== */
+  .ripple{position:relative;width:50px;height:50px}
+  .ripple span{
+    position:absolute;inset:0;border:2px solid #E8C547;border-radius:50%;
+    animation:ripple-expand 1.6s ease-out infinite;
+  }
+  .ripple span:nth-child(2){animation-delay:.4s}
+  .ripple span:nth-child(3){animation-delay:.8s}
+  @keyframes ripple-expand{0%{transform:scale(0);opacity:1}100%{transform:scale(1);opacity:0}}
+
+  /* ===== 11. Clock ===== */
+  .clock-loader{
+    width:40px;height:40px;border:2px solid #444;border-radius:50%;
+    position:relative;
+  }
+  .clock-loader::before{
+    content:'';position:absolute;top:50%;left:50%;width:2px;height:14px;
+    background:#E8C547;transform-origin:bottom center;
+    transform:translateX(-50%);border-radius:1px;
+    animation:clock-tick 2s steps(12) infinite;
+  }
+  @keyframes clock-tick{to{transform:translateX(-50%) rotate(360deg)}}
+
+  /* ===== 12. DNA Helix ===== */
+  .dna-helix{display:flex;gap:6px;align-items:center;height:40px}
+  .dna-helix span{
+    width:6px;height:6px;background:#E8C547;border-radius:50%;
+    animation:dna-wave 1.6s ease-in-out infinite;
+  }
+  .dna-helix span:nth-child(1){animation-delay:0s}
+  .dna-helix span:nth-child(2){animation-delay:.1s}
+  .dna-helix span:nth-child(3){animation-delay:.2s}
+  .dna-helix span:nth-child(4){animation-delay:.3s}
+  .dna-helix span:nth-child(5){animation-delay:.4s}
+  .dna-helix span:nth-child(6){animation-delay:.5s}
+  .dna-helix span:nth-child(7){animation-delay:.6s}
+  @keyframes dna-wave{
+    0%,100%{transform:translateY(-12px) scale(.7);opacity:.4}
+    50%{transform:translateY(12px) scale(1);opacity:1}
+  }
+
+  @media(max-width:600px){
+    h1{font-size:1.5rem}
+    .grid{grid-template-columns:1fr 1fr;gap:1rem;padding:0 1rem 3rem}
+    .card{padding:1.25rem 1rem}
+  }
+</style>
+</head>
+<body>
+
+<h1>Loading Animations</h1>
+<p class="subtitle">12 loading states for theme transitions and async content</p>
+
+<div class="grid">
+
+  <div class="card">
+    <div class="card-stage"><div class="spinner-ring"></div></div>
+    <div class="card-name">Spinner Ring</div>
+    <div class="card-desc">Classic rotating border. Universal, lightweight.</div>
+    <div class="card-tech">CSS border + animation</div>
+  </div>
+
+  <div class="card">
+    <div class="card-stage"><div class="pulse-dot"></div></div>
+    <div class="card-name">Pulse Dot</div>
+    <div class="card-desc">Expanding circle with fade. Minimal and modern.</div>
+    <div class="card-tech">CSS scale + opacity</div>
+  </div>
+
+  <div class="card">
+    <div class="card-stage"><div class="three-bounce"><span></span><span></span><span></span></div></div>
+    <div class="card-name">Three Bounce</div>
+    <div class="card-desc">Staggered bouncing dots. Friendly and approachable.</div>
+    <div class="card-tech">CSS animation-delay</div>
+  </div>
+
+  <div class="card">
+    <div class="card-stage"><div class="bar-wave"><span></span><span></span><span></span><span></span><span></span></div></div>
+    <div class="card-name">Bar Wave</div>
+    <div class="card-desc">Audio-equalizer style. Perfect for music/podcast themes.</div>
+    <div class="card-tech">CSS staggered heights</div>
+  </div>
+
+  <div class="card">
+    <div class="card-stage"><div class="orbit"><div class="orbit-track"></div><div class="orbit-dot"></div></div></div>
+    <div class="card-name">Orbit</div>
+    <div class="card-desc">Dot circling a track. Scientific or tech feel.</div>
+    <div class="card-tech">CSS transform-origin</div>
+  </div>
+
+  <div class="card">
+    <div class="card-stage"><div class="skeleton-shimmer"><span></span><span></span><span></span></div></div>
+    <div class="card-name">Skeleton Shimmer</div>
+    <div class="card-desc">Content placeholder with moving shine. Best UX for lazy loading.</div>
+    <div class="card-tech">CSS gradient animation</div>
+  </div>
+
+  <div class="card">
+    <div class="card-stage"><div class="typing-dots"><span></span><span></span><span></span></div></div>
+    <div class="card-name">Typing Dots</div>
+    <div class="card-desc">Chat-style thinking indicator. Great for AI or messaging themes.</div>
+    <div class="card-tech">CSS bounce + delay</div>
+  </div>
+
+  <div class="card">
+    <div class="card-stage"><div class="progress-bar"><span></span></div></div>
+    <div class="card-name">Progress Bar</div>
+    <div class="card-desc">Indeterminate sliding bar. Clean and informative.</div>
+    <div class="card-tech">CSS translateX</div>
+  </div>
+
+  <div class="card">
+    <div class="card-stage"><div class="flip-square"></div></div>
+    <div class="card-name">Flip Card</div>
+    <div class="card-desc">3D rotating square. Eye-catching, slightly playful.</div>
+    <div class="card-tech">CSS perspective + rotate</div>
+  </div>
+
+  <div class="card">
+    <div class="card-stage"><div class="ripple"><span></span><span></span><span></span></div></div>
+    <div class="card-name">Ripple</div>
+    <div class="card-desc">Concentric expanding rings. Elegant, water-inspired.</div>
+    <div class="card-tech">CSS scale + stagger</div>
+  </div>
+
+  <div class="card">
+    <div class="card-stage"><div class="clock-loader"></div></div>
+    <div class="card-name">Clock</div>
+    <div class="card-desc">Ticking clock hand. Implies time passage. Vintage or editorial.</div>
+    <div class="card-tech">CSS steps() + rotate</div>
+  </div>
+
+  <div class="card">
+    <div class="card-stage"><div class="dna-helix"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
+    <div class="card-name">DNA Helix</div>
+    <div class="card-desc">Wave of dots with depth. Science, biotech, or creative themes.</div>
+    <div class="card-tech">CSS translateY + scale</div>
+  </div>
+
+</div>
+
+</body>
+</html>

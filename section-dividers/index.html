@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section Dividers — Theme Catalog</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0a0a0a;color:#e0e0e0;font-family:'Inter',system-ui,sans-serif;line-height:1.6}
+  h1{text-align:center;padding:3rem 1rem 1rem;font-size:2rem;letter-spacing:.05em;color:#fff}
+  .subtitle{text-align:center;color:#888;margin-bottom:2rem;font-size:.95rem}
+  .catalog{max-width:900px;margin:0 auto;padding:0 1.5rem 4rem}
+
+  /* Each divider demo */
+  .demo{margin-bottom:0}
+  .demo-label{
+    background:#111;padding:.75rem 1.25rem;border-radius:8px 8px 0 0;
+    font-weight:600;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;
+    color:#E8C547;display:flex;justify-content:space-between;align-items:center;
+  }
+  .demo-label span{color:#666;font-weight:400;text-transform:none;letter-spacing:0;font-size:.8rem}
+  .demo-area{
+    background:#161616;min-height:120px;display:flex;flex-direction:column;
+    justify-content:center;align-items:stretch;position:relative;overflow:hidden;
+  }
+  .section-top{background:#1e1e1e;padding:2rem;text-align:center;color:#555;font-size:.85rem}
+  .section-bottom{background:#141414;padding:2rem;text-align:center;color:#555;font-size:.85rem}
+  .demo-desc{
+    background:#111;padding:.6rem 1.25rem;border-radius:0 0 8px 8px;
+    color:#777;font-size:.8rem;margin-bottom:2.5rem;
+  }
+
+  /* ===== 1. Wave ===== */
+  .divider-wave{position:relative;height:60px;overflow:hidden}
+  .divider-wave svg{position:absolute;bottom:0;width:100%;height:60px}
+  .divider-wave path{fill:#141414}
+
+  /* ===== 2. Diagonal ===== */
+  .divider-diagonal{
+    position:relative;height:80px;
+    background:linear-gradient(to bottom right, #1e1e1e 49.5%, #141414 50.5%);
+  }
+
+  /* ===== 3. Zigzag ===== */
+  .divider-zigzag{
+    position:relative;height:30px;
+    background:linear-gradient(135deg, #1e1e1e 25%, transparent 25%) -20px 0,
+               linear-gradient(225deg, #1e1e1e 25%, transparent 25%) -20px 0,
+               linear-gradient(315deg, #1e1e1e 25%, transparent 25%),
+               linear-gradient(45deg, #1e1e1e 25%, transparent 25%);
+    background-size:40px 30px;
+    background-color:#141414;
+  }
+
+  /* ===== 4. Curved ===== */
+  .divider-curved{position:relative;height:80px;overflow:hidden}
+  .divider-curved::after{
+    content:'';position:absolute;top:-40px;left:-5%;width:110%;height:120px;
+    border-radius:0 0 50% 50%;background:#1e1e1e;
+  }
+
+  /* ===== 5. Torn Paper ===== */
+  .divider-torn{position:relative;height:40px;overflow:hidden}
+  .divider-torn svg{position:absolute;top:0;width:100%;height:40px}
+
+  /* ===== 6. Gradient Fade ===== */
+  .divider-gradient{
+    height:60px;
+    background:linear-gradient(to bottom, #1e1e1e, #141414);
+  }
+
+  /* ===== 7. Double Line ===== */
+  .divider-doubleline{
+    display:flex;align-items:center;justify-content:center;
+    height:40px;gap:0;flex-direction:column;
+    background:linear-gradient(#1e1e1e 45%, #141414 55%);
+  }
+  .divider-doubleline span{
+    display:block;width:60%;height:1px;
+    background:linear-gradient(90deg, transparent, #E8C547, transparent);
+  }
+  .divider-doubleline span:nth-child(2){margin-top:6px;opacity:.4}
+
+  /* ===== 8. Diamond Dots ===== */
+  .divider-diamonds{
+    display:flex;align-items:center;justify-content:center;
+    height:40px;gap:12px;
+    background:linear-gradient(#1e1e1e 45%, #141414 55%);
+  }
+  .divider-diamonds .dot{
+    width:8px;height:8px;background:#E8C547;transform:rotate(45deg);
+  }
+  .divider-diamonds .dot:nth-child(2){opacity:.6;width:6px;height:6px}
+  .divider-diamonds .dot:nth-child(4){opacity:.6;width:6px;height:6px}
+  .divider-diamonds .dot:nth-child(1),.divider-diamonds .dot:nth-child(5){opacity:.3;width:5px;height:5px}
+
+  /* ===== 9. Brush Stroke ===== */
+  .divider-brush{position:relative;height:30px;overflow:hidden}
+  .divider-brush svg{position:absolute;top:0;width:100%;height:30px}
+
+  /* ===== 10. Arrow ===== */
+  .divider-arrow{
+    position:relative;height:50px;overflow:hidden;
+    background:#141414;
+  }
+  .divider-arrow::before{
+    content:'';position:absolute;top:0;left:0;right:0;
+    height:25px;background:#1e1e1e;
+    clip-path:polygon(0 0, 100% 0, 50% 100%);
+  }
+
+  /* ===== 11. Scallop ===== */
+  .divider-scallop{position:relative;height:30px;overflow:hidden;background:#141414}
+  .divider-scallop::before{
+    content:'';position:absolute;top:0;left:-2%;width:104%;height:30px;
+    background:
+      radial-gradient(circle at 10% 0, transparent 18px, #1e1e1e 18px) 0 0,
+      radial-gradient(circle at 30% 0, transparent 18px, #1e1e1e 18px) 0 0,
+      radial-gradient(circle at 50% 0, transparent 18px, #1e1e1e 18px) 0 0,
+      radial-gradient(circle at 70% 0, transparent 18px, #1e1e1e 18px) 0 0,
+      radial-gradient(circle at 90% 0, transparent 18px, #1e1e1e 18px) 0 0;
+    background-size:100% 100%;
+  }
+
+  /* ===== 12. Pulse Line ===== */
+  .divider-pulse{
+    display:flex;align-items:center;justify-content:center;
+    height:50px;background:linear-gradient(#1e1e1e 45%, #141414 55%);
+  }
+  .divider-pulse svg{width:200px;height:30px}
+  .divider-pulse path{stroke:#E8C547;fill:none;stroke-width:2;stroke-linecap:round}
+
+  /* ===== 13. Tilt ===== */
+  .divider-tilt{
+    position:relative;height:60px;background:#141414;
+  }
+  .divider-tilt::before{
+    content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+    background:#1e1e1e;
+    clip-path:polygon(0 0, 100% 0, 100% 30%, 0 100%);
+  }
+
+  /* ===== 14. Stacked Waves ===== */
+  .divider-stacked{position:relative;height:80px;overflow:hidden;background:#141414}
+  .divider-stacked svg{position:absolute;bottom:0;width:100%;height:80px}
+
+  /* ===== 15. Ornamental ===== */
+  .divider-ornamental{
+    display:flex;align-items:center;justify-content:center;
+    height:50px;gap:8px;
+    background:linear-gradient(#1e1e1e 45%, #141414 55%);
+  }
+  .divider-ornamental .line{flex:1;max-width:120px;height:1px;background:linear-gradient(90deg,transparent,#E8C547)}
+  .divider-ornamental .line:last-child{background:linear-gradient(90deg,#E8C547,transparent)}
+  .divider-ornamental .icon{color:#E8C547;font-size:1.2rem}
+
+  @media(max-width:600px){
+    h1{font-size:1.5rem}
+    .catalog{padding:0 1rem 3rem}
+  }
+</style>
+</head>
+<body>
+
+<h1>Section Dividers</h1>
+<p class="subtitle">15 divider styles for transitioning between theme sections</p>
+
+<div class="catalog">
+
+  <!-- 1. Wave -->
+  <div class="demo">
+    <div class="demo-label">Wave <span>SVG path</span></div>
+    <div class="demo-area">
+      <div class="section-top">Section Above</div>
+      <div class="divider-wave">
+        <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+          <path d="M0,20 C200,60 400,0 600,20 C800,40 1000,0 1200,20 L1200,60 L0,60 Z"/>
+        </svg>
+      </div>
+      <div class="section-bottom">Section Below</div>
+    </div>
+    <div class="demo-desc">Smooth sine wave — classic, works everywhere. Single SVG path.</div>
+  </div>
+
+  <!-- 2. Diagonal -->
+  <div class="demo">
+    <div class="demo-label">Diagonal <span>CSS gradient</span></div>
+    <div class="demo-area">
+      <div class="section-top">Section Above</div>
+      <div class="divider-diagonal"></div>
+      <div class="section-bottom">Section Below</div>
+    </div>
+    <div class="demo-desc">Sharp diagonal cut. Pure CSS gradient, no SVG needed.</div>
+  </div>
+
+  <!-- 3. Zigzag -->
+  <div class="demo">
+    <div class="demo-label">Zigzag <span>CSS gradient</span></div>
+    <div class="demo-area">
+      <div class="section-top">Section Above</div>
+      <div class="divider-zigzag"></div>
+      <div class="section-bottom">Section Below</div>
+    </div>
+    <div class="demo-desc">Repeating triangular pattern. Good for playful or craft themes.</div>
+  </div>
+
+  <!-- 4. Curved -->
+  <div class="demo">
+    <div class="demo-label">Curved <span>CSS border-radius</span></div>
+    <div class="demo-area">
+      <div class="section-top">Section Above</div>
+      <div class="divider-curved"></div>
+      <div class="section-bottom">Section Below</div>
+    </div>
+    <div class="demo-desc">Soft convex curve using oversized border-radius. Elegant and minimal.</div>
+  </div>
+
+  <!-- 5. Torn Paper -->
+  <div class="demo">
+    <div class="demo-label">Torn Paper <span>SVG path</span></div>
+    <div class="demo-area">
+      <div class="section-top">Section Above</div>
+      <div class="divider-torn">
+        <svg viewBox="0 0 1200 40" preserveAspectRatio="none">
+          <path d="M0,0 L30,8 L60,2 L90,12 L120,4 L150,15 L180,6 L210,10 L240,3 L270,14 L300,7 L330,11 L360,2 L390,13 L420,5 L450,16 L480,8 L510,3 L540,12 L570,6 L600,14 L630,4 L660,10 L690,2 L720,15 L750,7 L780,11 L810,3 L840,13 L870,5 L900,16 L930,8 L960,3 L990,12 L1020,6 L1050,14 L1080,4 L1110,10 L1140,2 L1170,15 L1200,7 L1200,40 L0,40 Z" fill="#141414"/>
+        </svg>
+      </div>
+      <div class="section-bottom">Section Below</div>
+    </div>
+    <div class="demo-desc">Irregular torn edge. Great for scrapbook, vintage, or organic themes.</div>
+  </div>
+
+  <!-- 6. Gradient Fade -->
+  <div class="demo">
+    <div class="demo-label">Gradient Fade <span>CSS gradient</span></div>
+    <div class="demo-area">
+      <div class="section-top">Section Above</div>
+      <div class="divider-gradient"></div>
+      <div class="section-bottom">Section Below</div>
+    </div>
+    <div class="demo-desc">Smooth color blend. Invisible but effective. Best for subtle transitions.</div>
+  </div>
+
+  <!-- 7. Double Line -->
+  <div class="demo">
+    <div class="demo-label">Double Line <span>CSS</span></div>
+    <div class="demo-area">
+      <div class="section-top">Section Above</div>
+      <div class="divider-doubleline">
+        <span></span><span></span>
+      </div>
+      <div class="section-bottom">Section Below</div>
+    </div>
+    <div class="demo-desc">Two accent-colored lines with gradient fade. Refined editorial feel.</div>
+  </div>
+
+  <!-- 8. Diamond Dots -->
+  <div class="demo">
+    <div class="demo-label">Diamond Dots <span>CSS</span></div>
+    <div class="demo-area">
+      <div class="section-top">Section Above</div>
+      <div class="divider-diamonds">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      </div>
+      <div class="section-bottom">Section Below</div>
+    </div>
+    <div class="demo-desc">Five rotated squares in decreasing opacity. Classic separator motif.</div>
+  </div>
+
+  <!-- 9. Brush Stroke -->
+  <div class="demo">
+    <div class="demo-label">Brush Stroke <span>SVG path</span></div>
+    <div class="demo-area">
+      <div class="section-top">Section Above</div>
+      <div class="divider-brush">
+        <svg viewBox="0 0 1200 30" preserveAspectRatio="none">
+          <path d="M0,15 Q50,5 100,18 Q200,28 300,10 Q400,2 500,20 Q600,30 700,8 Q800,0 900,22 Q1000,28 1100,12 Q1150,5 1200,15 L1200,30 L0,30 Z" fill="#141414" opacity=".9"/>
+          <path d="M0,18 Q100,8 200,22 Q300,30 400,14 Q500,4 600,24 Q700,30 800,12 Q900,2 1000,20 Q1100,28 1200,18 L1200,30 L0,30 Z" fill="#141414"/>
+        </svg>
+      </div>
+      <div class="section-bottom">Section Below</div>
+    </div>
+    <div class="demo-desc">Layered organic curves mimicking a paint stroke. Artistic themes.</div>
+  </div>
+
+  <!-- 10. Arrow / Chevron -->
+  <div class="demo">
+    <div class="demo-label">Arrow / Chevron <span>CSS clip-path</span></div>
+    <div class="demo-area">
+      <div class="section-top">Section Above</div>
+      <div class="divider-arrow"></div>
+      <div class="section-bottom">Section Below</div>
+    </div>
+    <div class="demo-desc">Downward-pointing arrow. Bold directional cue. Good for landing pages.</div>
+  </div>
+
+  <!-- 11. Scallop -->
+  <div class="demo">
+    <div class="demo-label">Scallop <span>CSS radial-gradient</span></div>
+    <div class="demo-area">
+      <div class="section-top">Section Above</div>
+      <div class="divider-scallop"></div>
+      <div class="section-bottom">Section Below</div>
+    </div>
+    <div class="demo-desc">Repeating half-circle cutouts. Decorative, works for feminine or vintage themes.</div>
+  </div>
+
+  <!-- 12. Pulse / Heartbeat Line -->
+  <div class="demo">
+    <div class="demo-label">Pulse Line <span>SVG</span></div>
+    <div class="demo-area">
+      <div class="section-top">Section Above</div>
+      <div class="divider-pulse">
+        <svg viewBox="0 0 200 30">
+          <path d="M0,15 L60,15 L70,5 L80,25 L90,5 L100,25 L110,15 L200,15"/>
+        </svg>
+      </div>
+      <div class="section-bottom">Section Below</div>
+    </div>
+    <div class="demo-desc">ECG-style heartbeat line. Niche but striking — health, fitness, music themes.</div>
+  </div>
+
+  <!-- 13. Tilt -->
+  <div class="demo">
+    <div class="demo-label">Tilt <span>CSS clip-path</span></div>
+    <div class="demo-area">
+      <div class="section-top">Section Above</div>
+      <div class="divider-tilt"></div>
+      <div class="section-bottom">Section Below</div>
+    </div>
+    <div class="demo-desc">Asymmetric slant — different angles top-right vs bottom-left. Modern and dynamic.</div>
+  </div>
+
+  <!-- 14. Stacked Waves -->
+  <div class="demo">
+    <div class="demo-label">Stacked Waves <span>SVG layered</span></div>
+    <div class="demo-area">
+      <div class="section-top">Section Above</div>
+      <div class="divider-stacked">
+        <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
+          <path d="M0,40 C200,70 400,20 600,50 C800,80 1000,30 1200,40 L1200,80 L0,80 Z" fill="#141414" opacity=".3"/>
+          <path d="M0,50 C300,20 500,70 700,40 C900,10 1100,60 1200,50 L1200,80 L0,80 Z" fill="#141414" opacity=".6"/>
+          <path d="M0,55 C150,75 350,35 600,60 C850,85 1050,45 1200,55 L1200,80 L0,80 Z" fill="#141414"/>
+        </svg>
+      </div>
+      <div class="section-bottom">Section Below</div>
+    </div>
+    <div class="demo-desc">Three overlapping waves with decreasing opacity. Rich depth effect.</div>
+  </div>
+
+  <!-- 15. Ornamental -->
+  <div class="demo">
+    <div class="demo-label">Ornamental <span>CSS + icon</span></div>
+    <div class="demo-area">
+      <div class="section-top">Section Above</div>
+      <div class="divider-ornamental">
+        <div class="line"></div>
+        <div class="icon">&#9830;</div>
+        <div class="line"></div>
+      </div>
+      <div class="section-bottom">Section Below</div>
+    </div>
+    <div class="demo-desc">Lines flanking a center icon. Swap the icon per theme (diamond, star, leaf, etc).</div>
+  </div>
+
+</div>
+
+</body>
+</html>
