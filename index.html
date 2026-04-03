@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theme Catalogs — Element Library</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0a0a0a;color:#e0e0e0;font-family:'Inter',system-ui,sans-serif;line-height:1.6;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem}
+  h1{font-size:2.2rem;letter-spacing:.06em;color:#fff;margin-bottom:.5rem}
+  .subtitle{color:#888;margin-bottom:3rem;font-size:.95rem}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;max-width:900px;width:100%}
+  a.card{
+    display:block;text-decoration:none;background:#141414;border:1px solid #222;
+    border-radius:12px;padding:1.75rem 1.5rem;transition:border-color .3s,transform .2s;
+  }
+  a.card:hover{border-color:#E8C547;transform:translateY(-3px)}
+  .card-icon{font-size:1.8rem;margin-bottom:.75rem}
+  .card-name{font-weight:600;font-size:1rem;color:#E8C547;margin-bottom:.35rem}
+  .card-desc{color:#777;font-size:.82rem;line-height:1.5}
+  .card-count{color:#555;font-size:.72rem;margin-top:.5rem}
+  .footer{margin-top:3rem;color:#444;font-size:.75rem}
+</style>
+</head>
+<body>
+
+<h1>Theme Catalogs</h1>
+<p class="subtitle">Reusable design elements for Ghost theme development</p>
+
+<div class="grid">
+  <a class="card" href="scroll-trails/">
+    <div class="card-icon">🐾</div>
+    <div class="card-name">Scroll Trails</div>
+    <div class="card-desc">Animated elements that appear as the user scrolls — paw prints, leaves, sparkles, and more.</div>
+    <div class="card-count">9 trail types</div>
+  </a>
+  <a class="card" href="section-dividers/">
+    <div class="card-icon">〰️</div>
+    <div class="card-name">Section Dividers</div>
+    <div class="card-desc">Transition effects between page sections — waves, torn paper, scallops, ornamental.</div>
+    <div class="card-count">15 divider styles</div>
+  </a>
+  <a class="card" href="loading-animations/">
+    <div class="card-icon">⏳</div>
+    <div class="card-name">Loading Animations</div>
+    <div class="card-desc">Spinners, skeletons, progress bars, and loading states for async content.</div>
+    <div class="card-count">12 animations</div>
+  </a>
+  <a class="card" href="decorative-elements/">
+    <div class="card-icon">✨</div>
+    <div class="card-name">Decorative Elements</div>
+    <div class="card-desc">Ambient effects — particles, grain, glow orbs, glassmorphism, spotlight follow.</div>
+    <div class="card-count">10 effects</div>
+  </a>
+  <a class="card" href="cursor-effects/">
+    <div class="card-icon">🎯</div>
+    <div class="card-name">Cursor Effects</div>
+    <div class="card-desc">Custom cursor behaviors — glow trail, spark burst, crosshair, ink drop, spotlight.</div>
+    <div class="card-count">8 cursor types</div>
+  </a>
+  <a class="card" href="color-palettes/">
+    <div class="card-icon">🎨</div>
+    <div class="card-name">Color Palettes</div>
+    <div class="card-desc">Curated color schemes by mood — dark, earthy, minimal, vibrant, niche-specific.</div>
+    <div class="card-count">15 palettes</div>
+  </a>
+  <a class="card" href="card-shapes/" style="opacity:.4;pointer-events:none">
+    <div class="card-icon">🔷</div>
+    <div class="card-name">Card Shapes</div>
+    <div class="card-desc">CSS clip-path card shapes. Separate repo — see card-shapes project.</div>
+    <div class="card-count">35 shapes (separate repo)</div>
+  </a>
+</div>
+
+<div class="footer">Add or tweak elements over time. Each catalog is a standalone HTML file.</div>
+
+</body>
+</html>
